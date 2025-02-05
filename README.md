@@ -211,3 +211,77 @@ ORDER BY quantity DESC
 LIMIT 5;
 ```
 
+<br>
+- 🔹 Advanced Queries
+<br>
+
+11) Determine the distribution of orders by hour of the day.
+
+``` sql
+SELECT 
+    HOUR(order_time), COUNT(order_id)
+FROM
+    orders
+GROUP BY HOUR(order_time)
+ORDER BY COUNT(order_id) DESC;
+```
+
+12) Group the orders by date and calculate the average number of pizzas ordered per day.
+
+``` sql
+SELECT 
+    round(avg(quantity),0) as_avg_quantity_per_day
+FROM
+    (SELECT 
+        orders.order_date, SUM(order_details.quantity) AS quantity
+    FROM
+        orders
+    JOIN order_details ON orders.order_id = order_details.order_id
+    GROUP BY orders.order_date) AS order_quantity;
+```
+
+13) Determine the top 3 most ordered pizza types based on revenue.
+
+``` sql
+SELECT 
+    pizza_types.name,
+    SUM(order_details.quantity * pizzas.price) AS revenue
+FROM
+    order_details
+        JOIN
+    pizzas ON order_details.pizza_id = pizzas.pizza_id
+        JOIN
+    pizza_types ON pizza_types.pizza_type_id = pizzas.pizza_type_id
+GROUP BY pizza_types.name
+ORDER BY revenue DESC
+LIMIT 3;
+```
+
+14) Rank pizzas based on total sales quantity.
+
+``` sql
+select pizza_types.name, sum(order_details.quantity) as total_sold, rank() over(order by sum(order_details.quantity) desc) as Ranking from order_details join pizzas on order_details.pizza_id = pizzas.pizza_id join pizza_types on pizzas.pizza_type_id = pizza_types.pizza_type_id group by pizza_types.name;
+
+```
+
+15) Calculate total revenue per month.
+
+``` sql
+SELECT 
+    MONTH(orders.order_date) AS month,
+    SUM(order_details.quantity * pizzas.price) AS revenue
+FROM
+    order_details
+        JOIN
+    orders ON order_details.order_id = orders.order_id
+        JOIN
+    pizzas ON pizzas.pizza_id = order_details.pizza_id
+GROUP BY month
+ORDER BY revenue DESC;
+```
+
+<br>
+## 📌 Final Conclusion for SQL Pizza Sales Analysis
+<br>
+The SQL Pizza Sales Analysis provides valuable insights into customer preferences, sales trends, and business performance. The data reveals that Pepperoni pizza is the most popular choice, while Large-sized pizzas generate the highest sales. Sales peak between 7 PM - 9 PM, with Saturdays being the busiest day, indicating high demand during weekends. Revenue is significantly higher on weekends compared to weekdays, suggesting a strong preference for dining out or ordering in during leisure time. However, certain pizza types, like Cheese Lovers, have low sales, highlighting an opportunity for targeted promotions. To optimize business performance, inventory should be managed efficiently, staffing should be increased during peak hours, and new marketing strategies should be introduced for underperforming pizzas. These insights enable data-driven decision-making, helping improve customer satisfaction and maximize profitability. 🚀🍕
+
