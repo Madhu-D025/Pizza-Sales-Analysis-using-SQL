@@ -76,20 +76,20 @@ The dataset consists of four CSV files, each representing a different aspect of 
 - 🔹 Basic Queries
 <br>
 1) Find the total number of orders placed.
-<br>
-''' sql
+
+``` sql
 SELECT 
     COUNT(order_id)
 FROM
     orders;
-'''
+```
 
 
 2) List all unique pizza types available.
 
 ``` sql
-**select sum(quantity) as Total_Pizza_sold from order_details; 
-**
+select sum(quantity) as Total_Pizza_sold from order_details; 
+
 ```
 
 
