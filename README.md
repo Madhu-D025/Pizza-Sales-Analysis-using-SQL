@@ -88,8 +88,126 @@ FROM
 2) List all unique pizza types available.
 
 ``` sql
+SELECT DISTINCT
+    (name)
+FROM
+    pizza_types;
+
+```
+
+3) Get the total number of pizzas sold.
+
+``` sql
 select sum(quantity) as Total_Pizza_sold from order_details; 
 
 ```
 
+4) Join the necessary tables to find the total quantity of each pizza category ordered.
+
+``` sql
+SELECT 
+    pizza_types.category,
+    SUM(order_details.quantity) AS quantity
+FROM
+    pizza_types
+        JOIN
+    pizzas ON pizza_types.pizza_type_id = pizzas.pizza_type_id
+        JOIN
+    order_details ON pizzas.pizza_id = order_details.pizza_id
+GROUP BY pizza_types.category
+ORDER BY quantity DESC; 
+
+```
+
+5) Identify all orders where more than 2 pizzas were ordered.
+
+``` sql
+SELECT 
+    order_id
+FROM
+    order_details
+GROUP BY order_id
+HAVING SUM(quantity) > 2;
+
+```
+
+<br>
+- 🔹 Intermediate Queries
+<br>
+6) Find the total revenue generated.
+
+``` sql
+SELECT 
+    SUM(order_details.quantity * pizzas.price) AS total_revenue
+FROM
+    order_details
+        JOIN
+    pizzas ON order_details.pizza_id = pizzas.pizza_id;
+
+```
+
+
+7) Get the count of orders placed per day.
+
+``` sql
+SELECT 
+    order_date, count(order_id) AS total_orders
+FROM
+    orders
+GROUP BY order_date
+ORDER BY total_orders DESC;
+
+```
+
+
+8) Identify the most common pizza size ordered.
+
+``` sql
+SELECT 
+    pizzas.size,
+    COUNT(order_details.order_details_id) AS No_of_pizzas
+FROM
+    order_details
+        JOIN
+    pizzas ON order_details.pizza_id = pizzas.pizza_id
+GROUP BY pizzas.size
+ORDER BY No_of_pizzas DESC;
+
+```
+
+
+9) Find the highest and lowest revenue-generating pizzas.
+
+``` sql
+SELECT 
+    pizzas.pizza_id,
+    pizza_types.name,
+    SUM(order_details.order_id * pizzas.price) AS Revenue
+FROM
+    order_details
+        JOIN
+    pizzas ON order_details.pizza_id = pizzas.pizza_id
+        JOIN
+    pizza_types ON pizzas.pizza_type_id = pizza_types.pizza_type_id
+GROUP BY pizzas.pizza_id , pizza_types.name
+ORDER BY Revenue DESC; 
+
+```
+
+
+10) List the top 5 most ordered pizza types along with their quantities.
+
+``` sql
+SELECT 
+    pizza_types.name, SUM(order_details.quantity) AS quantity
+FROM
+    order_details
+        JOIN
+    pizzas ON order_details.pizza_id = pizzas.pizza_id
+        JOIN
+    pizza_types ON pizza_types.pizza_type_id = pizzas.pizza_type_id
+GROUP BY pizza_types.name
+ORDER BY quantity DESC
+LIMIT 5;
+```
 
