@@ -2,18 +2,19 @@
 ## Project Title: SQL Pizza Sales Analysis 🍕📊
 ### Level: Intermediate
 ### Database: pizza
-##🔍 Project Overview
+
+## Project Overview
 <br>
 This project analyzes pizza sales data using SQL queries to uncover key insights into sales trends, revenue, customer preferences, and order patterns. By leveraging SQL techniques like joins, aggregations, window functions, and ranking, we derive valuable business insights that can help optimize sales strategies and operations.
-## 📌 Dataset Overview 
+
+## Dataset Overview 
 The dataset consists of four CSV files, each representing a different aspect of the pizza sales business.
 - orders Table: Contains order ID, date, and time of purchase.
 - order_details Table: Links each order to pizzas, with quantity ordered.
 - pizzas Table: Contains pizza ID, type, size, and price.
 - pizza_types Table: Lists different pizza names and their categories.
   
-## 🎯 Project Objectives & Key Insights
-- 📌 Project Objectives
+## Project Objectives & Key Insights
 <br>
 ✅ Analyze pizza sales trends to identify key business insights.
 <br>
@@ -70,8 +71,8 @@ The dataset consists of four CSV files, each representing a different aspect of 
 <br>
 ✔ Consider bundling least-ordered pizzas with popular choices to increase sales.
 <br>
-<br>
-## 🔎 SQL Queries in the Project
+
+## SQL Queries in the Project
 <br>
 - 🔹 Basic Queries
 <br>
